@@ -7,9 +7,12 @@ $(document).ready(function () {
     var today = moment();
 
     $("#currentDay").text(today.format("[Don't forget, today is] dddd MMM Do, YYYY [and the time is] h:mm a"));
+    
+    $('.saveBtn').on('click', function () {
     var scheduledEvent = $(this).siblings(".descritpion").val();
     var time = $(this).parent().attr('id');
     localStorage.setItem(time,scheduledEvent);
+    });
 });
 
 //cross check if it is current hour
@@ -23,8 +26,9 @@ function isCurrentPastOrFuture(hour) {
     } else {
         return 3
     }
+    //updates time every 30 seconds
 setInterval(timeUpdater, 30000)
-
+//function to run time update
 function timeUpdater() {
     timeUpdater();
 }
@@ -50,12 +54,24 @@ for (var i=0; i < blocks.length; i++ ) {
     var block = document.createElement("div");
     //setting a var that creates a textarea for every entry in blocks
     var textbox = document.createElement('textarea');
+    
+    //create button
+    var button = document.createElement("button")
+    //link css attributes to button
+    button.setAttribute("class", "saveBtn col-md-1")
     //linking css attributes to textbox
     textbox.setAttribute("class", "description col-md-10");
     //linking css attributes to block
     block.setAttribute("class", "hour");
     //taking the blocks entry and converting to stander 12 hours time
     block.textContent = moment(blocks[i], 'HH').format('h a');
+    
+
+
+
+
+    //attaching block to container 
+    container.appendChild(button)
     //attaching block to wrapper var
     wrapper.appendChild(block);
     //attaching text box wrapper
@@ -63,3 +79,9 @@ for (var i=0; i < blocks.length; i++ ) {
     //attaching wrapper (that contains the block and textbox) to the container in HTML
     container.appendChild(wrapper);
 }
+
+$('.saveBtn').on('click', function () {
+
+    var scheduledEvent = $(this).siblings(".textarea")
+})
+
